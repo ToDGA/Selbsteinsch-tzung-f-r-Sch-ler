@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selbsteinschätzung</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- START -->
+  <div id="startScreen" class="card">
+    <h1>Selbsteinschätzung</h1>
+    <p class="subtitle">
+      Bitte beantworte die Fragen ehrlich. Es gibt keine richtigen oder falschen Antworten.
+    </p>
+
+    <label>Klasse / Kurs</label>
+    <input type="text" id="classGroup" placeholder="z.B. 6D">
+
+    <label>Nummer</label>
+    <input title="type your number" type="number" id="studentNumber" min="1" max="40">
+
+    <button onclick="startQuestionnaire()">Start</button>
+  </div>
+
+  <!-- FRAGEN -->
+  <div id="questionScreen" class="card hidden">
+    <div class="progressWrapper">
+      <div id="progressBar"></div>
+    </div>
+    <div id="questionCounter" class="counter"></div>
+    <div id="questionText" class="question"></div>
+    <div id="questionExample" class="questionExample"></div>
+
+    <div class="answers">
+      <button onclick="answerQuestion(4)">😀<br>fast immer</button>
+      <button onclick="answerQuestion(3)">🙂<br>oft</button>
+      <button onclick="answerQuestion(2)">😐<br>manchmal</button>
+      <button onclick="answerQuestion(1)">☹️<br>selten</button>
+    </div>
+  </div>
+
+  <!-- ERGEBNIS -->
+  <div id="resultScreen" class="card hidden">
+    <div class="result-header">
+      <h2>Ergebnisübersicht</h2>
+      <div id="timestamp"></div>
+    </div>
+
+    <div class="teacherNameField">
+      Name der Schülerin / des Schülers: <span class="printLine">_________________________________</span>
+    </div>
+
+    <!-- Grid für die Kategorien -->
+    <div id="resultContent" class="results-grid"></div>
+
+    <!-- Reflexionsbereich -->
+    <div class="reflection">
+      <div class="reflection-box">
+        <h3>Das klappt schon gut:</h3>
+        <ul class="reflectionExamples">
+          <li>z. B. Ich kann in der Gruppe gut mitarbeiten.</li>
+        </ul>
+        <div class="lineBox" contenteditable="true"></div>
+      </div>
+      <div class="reflection-box">
+        <h3>Dabei brauche ich noch Hilfe:</h3>
+        <ul class="reflectionExamples">
+          <li>z. B. Ich werde manchmal schnell wütend.</li>
+        </ul>
+        <div class="lineBox" contenteditable="true"></div>
+      </div>
+    </div>
+
+    <div class="no-print actions-buttons">
+      <button id="btnPrint" class="btn-print">Drucken / Als PDF speichern</button>
+      <button class="btn-reload" onclick="location.reload()">Neue Einschätzung</button>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  Gesamtschule Emschertal Duisburg, DGA
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

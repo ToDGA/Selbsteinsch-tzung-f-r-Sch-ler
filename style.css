@@ -1,0 +1,405 @@
+/* style.css */
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('OpenDyslexic-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'OpenDyslexic', 'Segoe UI', Arial, sans-serif;
+  background: #f4f6f8;
+  color: #333;
+  padding: 30px 20px;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 840px;
+  margin: auto;
+}
+
+.card {
+  background: white;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+h1 {
+  font-size: 32px;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 26px;
+  color: #2c3e50;
+}
+
+h3 {
+  font-size: 16px;
+  color: #34495e;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin-bottom: 25px;
+  color: #7f8c8d;
+  font-size: 16px;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 16px;
+  background: #f8fafc;
+}
+
+input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #2c3e50;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #1a252f;
+}
+
+/* FRAGEN-SCREEN */
+.progressWrapper {
+  width: 100%;
+  height: 10px;
+  background: #e2e8f0;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+#progressBar {
+  height: 100%;
+  width: 0%;
+  background: #2ecc71;
+  transition: width 0.2s ease;
+}
+
+.counter {
+  color: #7f8c8d;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.question {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  min-height: 70px;
+}
+
+.questionExample {
+  font-size: 15px;
+  font-weight: normal;
+  color: #a0aec0;
+  font-style: italic;
+  margin-top: -15px;
+  margin-bottom: 20px;
+  min-height: 20px;
+}
+
+.answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.answers button {
+  background: #ffffff;
+  color: #333;
+  border: 2px solid #e2e8f0;
+  margin-top: 0;
+  padding: 20px 10px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.answers button:hover {
+  background: #f8fafc;
+  border-color: #3498db;
+}
+
+/* ERGEBNIS-SCREEN OPTIMIERUNG */
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 12px;
+  margin-bottom: 15px;
+}
+
+#timestamp {
+  font-size: 13px;
+  color: #64748b;
+  text-align: right;
+  line-height: 1.5;
+}
+
+.teacherNameField {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 15px;
+}
+
+.printLine {
+  font-weight: normal;
+  color: #94a3b8;
+}
+
+/* Grid für kompakte, aussagekräftige Darstellung */
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.resultBox {
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.resultBox strong {
+  font-size: 15px;
+  color: #1e293b;
+}
+
+.result-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.result-status {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.result-score {
+  font-weight: bold;
+  background: rgba(255,255,255,0.6);
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.emojiBar {
+  font-size: 18px;
+  margin-top: 6px;
+  letter-spacing: 2px;
+}
+
+/* Gesamtwert kriegt die volle Breite für optische Gewichtung */
+.resultBox.total-score-box {
+  grid-column: span 2;
+  background: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 20px;
+}
+
+.resultBox.total-score-box .result-meta {
+  margin-top: 0;
+  gap: 15px;
+}
+
+/* Hinweisboxen bei schneller Bearbeitung */
+.warning-box {
+  grid-column: span 2;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  color: #b45309;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* Farbgebungen */
+.green { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
+.yellow { background: #fefce8; border-color: #fef08a; color: #854d0e; }
+.orange { background: #fff7ed; border-color: #ffedd5; color: #9a3412; }
+.red { background: #fef2f2; border-color: #fee2e2; color: #991b1b; }
+
+/* Reflexionsbereiche nebeneinander spart enorm viel vertikalen Platz */
+.reflection {
+  display: flex;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.reflection-box {
+  flex: 1;
+}
+
+.reflectionExamples {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+}
+
+.reflectionExamples li {
+  font-size: 12px;
+  font-style: italic;
+  color: #a0aec0;
+  line-height: 1.6;
+  padding-left: 14px;
+  position: relative;
+}
+
+.reflectionExamples li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: #cbd5e1;
+}
+
+.line {
+  border-bottom: 1px dashed #cbd5e1;
+  height: 30px;
+  border: none;
+}
+
+.lineBox{
+  min-height:120px;
+  border-bottom:1px dashed #cbd5e1;
+  white-space:pre-wrap;
+  outline:none;
+  font:inherit;
+}
+
+.actions-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.btn-print { background: #3498db; }
+.btn-print:hover { background: #2980b9; }
+.btn-reload { background: #95a5a6; }
+.btn-reload:hover { background: #7f8c8d; }
+
+.footer {
+  text-align: center;
+  margin-top: 25px;
+  color: #94a3b8;
+  font-size: 12px;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 10px;
+}
+
+/* PRINT OPTIMIERUNG FÜR GENAU EINE SEITE A4 */
+@media print {
+  body {
+    background: white;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+  }
+  
+  .container {
+    max-width: 100%;
+  }
+
+  .card {
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    margin-bottom: 0;
+  }
+
+  .no-print, .actions-buttons, button {
+    display: none !important;
+  }
+
+  .results-grid {
+    gap: 10px;
+  }
+
+  .resultBox {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1 !important; /* Sichtbare Rahmen im Druck */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .reflection {
+    margin-top: 10px;
+    gap: 15px;
+  }
+
+  .reflectionExamples li {
+    font-size: 10px;
+    line-height: 1.4;
+  }
+
+  .line {
+    height: 24px;
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 5px;
+    font-size: 11px;
+  }
+}
