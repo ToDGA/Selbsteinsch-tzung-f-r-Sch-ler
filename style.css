@@ -1,7 +1,7 @@
-/* style.css */
+/* style.css — Version 2.0 */
 @font-face {
   font-family: 'OpenDyslexic';
-  src: url('OpenDyslexic-Regular.otf') format('opentype');
+  src: url('opendyslexic-regular.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -125,6 +125,12 @@ button:hover {
   margin-bottom: 10px;
 }
 
+.timer {
+  color: #94a3b8;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
 .question {
   font-size: 24px;
   font-weight: bold;
@@ -165,7 +171,94 @@ button:hover {
   border-color: #3498db;
 }
 
-/* ERGEBNIS-SCREEN OPTIMIERUNG */
+.answers button.selected {
+  background: #eff6ff;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25) inset;
+}
+
+.btn-back {
+  background: transparent;
+  color: #64748b;
+  border: none;
+  font-size: 14px;
+  font-weight: normal;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.btn-back:hover {
+  background: transparent;
+  color: #2c3e50;
+}
+
+.btn-back.invisible {
+  visibility: hidden;
+}
+
+.hint {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 6px;
+}
+
+.error-box {
+  margin-top: 15px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.answers button:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #3498db;
+  outline-offset: 2px;
+}
+
+.answers.locked button { pointer-events: none; }
+
+/* ABSENDEN */
+.send-box {
+  margin-top: 25px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+.send-box ol {
+  padding-left: 20px;
+  font-size: 15px;
+}
+
+.send-box li { margin-bottom: 6px; }
+
+.mail {
+  font-weight: 600;
+  color: #166534;
+  word-break: break-all;
+}
+
+.btn-secondary { background: #64748b; }
+.btn-secondary:hover { background: #475569; }
+.btn-danger { background: #b91c1c; }
+.btn-danger:hover { background: #991b1b; }
+
+.reload-confirm {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #991b1b;
+}
+
+/* ERGEBNIS-SCREEN */
+.page {
+  padding-top: 4px;
+}
+
 .result-header {
   display: flex;
   justify-content: space-between;
@@ -187,14 +280,17 @@ button:hover {
   font-weight: 600;
   color: #1e293b;
   margin-bottom: 15px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
 }
 
 .printLine {
-  font-weight: normal;
-  color: #94a3b8;
+  flex: 1;
+  border-bottom: 1px solid #94a3b8;
+  height: 1.2em;
 }
 
-/* Grid für kompakte, aussagekräftige Darstellung */
 .results-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -244,7 +340,6 @@ button:hover {
   letter-spacing: 2px;
 }
 
-/* Gesamtwert kriegt die volle Breite für optische Gewichtung */
 .resultBox.total-score-box {
   grid-column: span 2;
   background: #f8fafc;
@@ -259,7 +354,6 @@ button:hover {
   gap: 15px;
 }
 
-/* Hinweisboxen bei schneller Bearbeitung */
 .warning-box {
   grid-column: span 2;
   background: #fffbeb;
@@ -271,13 +365,19 @@ button:hover {
   text-align: center;
 }
 
-/* Farbgebungen */
+.duration-info {
+  grid-column: span 2;
+  color: #94a3b8;
+  font-size: 12px;
+  text-align: right;
+}
+
 .green { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
 .yellow { background: #fefce8; border-color: #fef08a; color: #854d0e; }
 .orange { background: #fff7ed; border-color: #ffedd5; color: #9a3412; }
 .red { background: #fef2f2; border-color: #fee2e2; color: #991b1b; }
 
-/* Reflexionsbereiche nebeneinander spart enorm viel vertikalen Platz */
+/* REFLEXIONSBEREICH */
 .reflection {
   display: flex;
   gap: 20px;
@@ -310,24 +410,148 @@ button:hover {
   color: #cbd5e1;
 }
 
-.line {
-  border-bottom: 1px dashed #cbd5e1;
-  height: 30px;
+textarea.line {
+  display: block;
+  width: 100%;
+  min-height: 30px;
   border: none;
+  border-bottom: 1px dashed #cbd5e1;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  color: #333;
+  resize: none;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding: 4px 2px;
 }
 
-.lineBox{
-  min-height:120px;
-  border-bottom:1px dashed #cbd5e1;
-  white-space:pre-wrap;
-  outline:none;
-  font:inherit;
+textarea.line:focus {
+  outline: none;
+  border-bottom-color: #3498db;
+}
+
+/* ===================== SEITE 2: DETAILAUSWERTUNG ===================== */
+.page2 {
+  margin-top: 10px;
+}
+
+.detailTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+
+.detailTable th {
+  text-align: left;
+  background: #f1f5f9;
+  color: #334155;
+  padding: 8px 10px;
+  border-bottom: 2px solid #cbd5e1;
+}
+
+.detailTable td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+
+.detailTable .catCell {
+  font-weight: 600;
+  color: #1e293b;
+  background: #f8fafc;
+  white-space: nowrap;
+}
+
+.detailTable .answerCell {
+  white-space: nowrap;
+  text-align: right;
+}
+
+.sectionTitle {
+  font-size: 17px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #1e293b;
+}
+
+.dev-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.devBox {
+  background: #fff7ed;
+  border: 1px solid #ffedd5;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+
+.devBox strong {
+  color: #1e293b;
+  font-size: 14px;
+}
+
+.devLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9a3412;
+  margin: 4px 0 6px 0;
+}
+
+.devBox ul {
+  list-style: none;
+  padding: 0;
+}
+
+.devBox li {
+  font-size: 13px;
+  color: #7c2d12;
+  padding-left: 14px;
+  position: relative;
+  margin-bottom: 3px;
+}
+
+.devBox li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+}
+
+.discussion-box {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+
+.discussion-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.discussion-box li {
+  font-size: 14px;
+  color: #1e3a8a;
+  padding-left: 16px;
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.discussion-box li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
 }
 
 .actions-buttons {
   display: flex;
   gap: 12px;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .btn-print { background: #3498db; }
@@ -344,7 +568,74 @@ button:hover {
   padding-top: 10px;
 }
 
-/* PRINT OPTIMIERUNG FÜR GENAU EINE SEITE A4 */
+/* ===================== RESPONSIVE: SMARTPHONES ===================== */
+@media (max-width: 600px) {
+  body {
+    padding: 15px 10px;
+  }
+
+  .card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  .question {
+    font-size: 20px;
+    min-height: 50px;
+  }
+
+  .answers {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .answers button {
+    padding: 14px 6px;
+    font-size: 14px;
+  }
+
+  .results-grid,
+  .dev-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resultBox.total-score-box,
+  .warning-box,
+  .duration-info {
+    grid-column: span 1;
+  }
+
+  .reflection {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .result-header {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  #timestamp {
+    text-align: left;
+  }
+
+  /* Tabelle bleibt lesbar statt überzulaufen */
+  .detailTable {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .actions-buttons {
+    flex-direction: column;
+  }
+}
+
+/* ===================== DRUCKOPTIMIERUNG: 2 SEITEN A4 ===================== */
 @media print {
   body {
     background: white;
@@ -352,7 +643,7 @@ button:hover {
     margin: 0;
     font-size: 13px;
   }
-  
+
   .container {
     max-width: 100%;
   }
@@ -375,7 +666,7 @@ button:hover {
   .resultBox {
     padding: 10px 14px;
     border-radius: 8px;
-    border: 1px solid #cbd5e1 !important; /* Sichtbare Rahmen im Druck */
+    border: 1px solid #cbd5e1 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
@@ -390,8 +681,49 @@ button:hover {
     line-height: 1.4;
   }
 
-  .line {
-    height: 24px;
+  textarea.line {
+    min-height: 24px;
+  }
+
+  /* Seite 2 beginnt auf einer neuen Druckseite */
+  .page2 {
+    page-break-before: always;
+    margin-top: 0;
+  }
+
+  .detailTable {
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+
+  .detailTable th { padding: 4px 8px; }
+  .detailTable td { padding: 1px 6px; line-height: 1.15; }
+  .page2 .result-header { margin-bottom: 8px; padding-bottom: 6px; }
+  .page2 h2 { font-size: 20px; }
+
+  .sectionTitle { font-size: 14px; margin: 6px 0; }
+  .devBox { padding: 8px 12px; }
+  .devBox li { font-size: 10px; line-height: 1.35; }
+  .discussion-box { padding: 8px 14px; }
+  .discussion-box li { font-size: 12px; margin-bottom: 2px; }
+
+  @page { margin: 12mm 12mm 16mm 12mm; }
+
+  .dev-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .devBox { break-inside: avoid; }
+  .devBox strong { font-size: 11.5px; }
+  .devLabel { font-size: 10px; margin: 2px 0 4px; }
+  .discussion-box { break-inside: avoid; }
+
+  .devBox, .discussion-box {
+    border: 1px solid #cbd5e1 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .footer {

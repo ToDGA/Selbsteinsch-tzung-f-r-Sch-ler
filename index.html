@@ -17,11 +17,14 @@
       Bitte beantworte die Fragen ehrlich. Es gibt keine richtigen oder falschen Antworten.
     </p>
 
-    <label>Klasse / Kurs</label>
-    <input type="text" id="classGroup" placeholder="z.B. 6D">
+    <label for="classGroup">Klasse / Kurs</label>
+    <input type="text" id="classGroup" placeholder="z. B. 6D" maxlength="12" autocomplete="off">
 
-    <label>Nummer</label>
-    <input title="type your number" type="number" id="studentNumber" min="1" max="40">
+    <label for="studentNumber">Deine Nummer</label>
+    <input title="Nummer vom Zettel" type="number" inputmode="numeric" id="studentNumber" min="1" max="999" placeholder="z. B. 17">
+    <p class="hint">Die Nummer steht auf deinem Zettel.</p>
+
+    <div id="startError" class="error-box hidden"></div>
 
     <button onclick="startQuestionnaire()">Start</button>
   </div>
@@ -32,52 +35,108 @@
       <div id="progressBar"></div>
     </div>
     <div id="questionCounter" class="counter"></div>
+    <div id="timerDisplay" class="timer">⏱ 0 Sekunden</div>
     <div id="questionText" class="question"></div>
     <div id="questionExample" class="questionExample"></div>
 
     <div class="answers">
-      <button onclick="answerQuestion(4)">😀<br>fast immer</button>
-      <button onclick="answerQuestion(3)">🙂<br>oft</button>
-      <button onclick="answerQuestion(2)">😐<br>manchmal</button>
-      <button onclick="answerQuestion(1)">☹️<br>selten</button>
+      <button data-value="4" onclick="answerQuestion(4)">😀<br>fast immer</button>
+      <button data-value="3" onclick="answerQuestion(3)">🙂<br>oft</button>
+      <button data-value="2" onclick="answerQuestion(2)">😐<br>manchmal</button>
+      <button data-value="1" onclick="answerQuestion(1)">☹️<br>selten</button>
     </div>
+
+    <button id="btnBack" class="btn-back" onclick="goBack()">← Zurück zur vorherigen Frage</button>
   </div>
 
   <!-- ERGEBNIS -->
   <div id="resultScreen" class="card hidden">
-    <div class="result-header">
-      <h2>Ergebnisübersicht</h2>
-      <div id="timestamp"></div>
-    </div>
 
-    <div class="teacherNameField">
-      Name der Schülerin / des Schülers: <span class="printLine">_________________________________</span>
-    </div>
-
-    <!-- Grid für die Kategorien -->
-    <div id="resultContent" class="results-grid"></div>
-
-    <!-- Reflexionsbereich -->
-    <div class="reflection">
-      <div class="reflection-box">
-        <h3>Das klappt schon gut:</h3>
-        <ul class="reflectionExamples">
-          <li>z. B. Ich kann in der Gruppe gut mitarbeiten.</li>
-        </ul>
-        <div class="lineBox" contenteditable="true"></div>
+    <!-- ===================== SEITE 1 ===================== -->
+    <div class="page page1">
+      <div class="result-header">
+        <h2>Ergebnisübersicht</h2>
+        <div id="timestamp"></div>
       </div>
-      <div class="reflection-box">
-        <h3>Dabei brauche ich noch Hilfe:</h3>
-        <ul class="reflectionExamples">
-          <li>z. B. Ich werde manchmal schnell wütend.</li>
-        </ul>
-        <div class="lineBox" contenteditable="true"></div>
+
+      <div class="teacherNameField">
+        <span>Name:</span> <span class="printLine"></span>
+      </div>
+
+      <div id="resultContent" class="results-grid"></div>
+
+      <div class="reflection">
+        <div class="reflection-box">
+          <h3>Das klappt schon gut:</h3>
+          <ul class="reflectionExamples">
+            <li>z. B. Ich kann in der Gruppe gut mitarbeiten.</li>
+          </ul>
+          <textarea class="line" rows="1"></textarea>
+          <textarea class="line" rows="1"></textarea>
+          <textarea class="line" rows="1"></textarea>
+          <textarea class="line" rows="1"></textarea>
+        </div>
+        <div class="reflection-box">
+          <h3>Dabei brauche ich noch Hilfe:</h3>
+          <ul class="reflectionExamples">
+            <li>z. B. Ich werde manchmal schnell wütend.</li>
+          </ul>
+          <textarea class="line" rows="1"></textarea>
+          <textarea class="line" rows="1"></textarea>
+          <textarea class="line" rows="1"></textarea>
+          <textarea class="line" rows="1"></textarea>
+        </div>
       </div>
     </div>
 
-    <div class="no-print actions-buttons">
-      <button id="btnPrint" class="btn-print">Drucken / Als PDF speichern</button>
-      <button class="btn-reload" onclick="location.reload()">Neue Einschätzung</button>
+    <!-- ===================== SEITE 2 ===================== -->
+    <div class="page page2">
+      <div class="result-header">
+        <h2>Detailauswertung</h2>
+      </div>
+
+      <table class="detailTable">
+        <thead>
+          <tr>
+            <th>Kategorie</th>
+            <th>Aussage</th>
+            <th>Antwort</th>
+          </tr>
+        </thead>
+        <tbody id="detailTableBody"></tbody>
+      </table>
+
+      <h3 class="sectionTitle">Entwicklungsfelder je Kategorie</h3>
+      <div id="developmentFields" class="dev-grid"></div>
+
+      <div class="discussion-box">
+        <h3 class="sectionTitle">Mögliche Gesprächsthemen</h3>
+        <ul id="discussionTopics"></ul>
+      </div>
+    </div>
+
+    <div class="no-print send-box">
+      <h3>So schickst du dein Ergebnis ab</h3>
+      <ol>
+        <li>Tippe auf <strong>„Drucken / Als PDF speichern“</strong> und wähle <strong>„Als PDF speichern“</strong>.</li>
+        <li>Speichere die Datei so, dass du sie wiederfindest (z. B. „Selbsteinschätzung_Name.pdf“).</li>
+        <li>Schicke die PDF als Anhang an:<br>
+          <a id="mailLink" class="mail" href="mailto:tobias.domagala@get-duisburg.de?subject=Selbsteinsch%C3%A4tzung%20Beratungstag">tobias.domagala@get-duisburg.de</a></li>
+      </ol>
+      <div class="actions-buttons">
+        <button id="btnPrint" class="btn-print">Drucken / Als PDF speichern</button>
+      </div>
+    </div>
+
+    <div class="no-print">
+      <button id="btnReload" class="btn-reload">Neue Einschätzung</button>
+      <div id="reloadConfirm" class="hidden reload-confirm">
+        Wirklich neu starten? Deine Antworten gehen verloren.
+        <div class="actions-buttons">
+          <button class="btn-danger" onclick="location.reload()">Ja, neu starten</button>
+          <button class="btn-secondary" onclick="document.getElementById('reloadConfirm').classList.add('hidden')">Abbrechen</button>
+        </div>
+      </div>
     </div>
   </div>
 
